@@ -230,6 +230,7 @@
     dispatch_queue_t _queue;
     dispatch_queue_t _userQueue;
     ARTErrorInfo *_errorReason;
+    NSUInteger _retryCount;
 }
 
 - (instancetype)initWithRealtime:(ARTRealtimeInternal *)realtime andName:(NSString *)name withOptions:(ARTRealtimeChannelOptions *)options {
@@ -241,6 +242,7 @@
         _restChannel = [_realtime.rest.channels _getChannel:self.name options:options addPrefix:true];
         _state = ARTRealtimeChannelInitialized;
         _attachSerial = nil;
+        _retryCount = 0;
         _presenceMap = [[ARTPresenceMap alloc] initWithQueue:_queue logger:self.logger];
         _presenceMap.delegate = self;
         _statesEventEmitter = [[ARTPublicEventEmitter alloc] initWithRest:_realtime.rest];
@@ -595,6 +597,10 @@ dispatch_sync(_queue, ^{
         _errorReason = status.errorInfo;
     }
 
+    if (state != ARTRealtimeChannelAttaching && state != ARTRealtimeChannelSuspended) {
+        _retryCount = 0;
+    }
+    
     ARTEventListener *channelRetryListener = nil;
     switch (state) {
         case ARTRealtimeChannelAttached:
@@ -603,7 +609,9 @@ dispatch_sync(_queue, ^{
         case ARTRealtimeChannelSuspended:
             [_attachedEventEmitter emit:nil with:status.errorInfo];
             if (self.realtime.shouldSendEvents) {
-                channelRetryListener = [self unlessStateChangesBefore:self.realtime.options.channelRetryTimeout do:^{
+                NSTimeInterval retryDelay = [ARTRealtimeInternal retryDelayFromTimeout:self.realtime.options.channelRetryTimeout
+                                                                            retryCount:++_retryCount];
+                channelRetryListener = [self unlessStateChangesBefore:retryDelay do:^{
                     [self.realtime.logger debug:__FILE__ line:__LINE__ message:@"RT:%p C:%p (%@) reattach initiated by retry timeout", self->_realtime, self, self.name];
                     [self reattachWithReason:nil callback:^(ARTErrorInfo *errorInfo) {
                         if (errorInfo) {

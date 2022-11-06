@@ -164,6 +164,7 @@
     ARTEventEmitter<ARTEvent *, ARTErrorInfo *> *_pingEventEmitter;
     NSDate *_connectionLostAt;
     NSDate *_lastActivity;
+    NSUInteger _retryCount;
     Class _transportClass;
     Class _reachabilityClass;
     id<ARTRealtimeTransport> _transport;
@@ -201,6 +202,7 @@
         _connection = [[ARTConnectionInternal alloc] initWithRealtime:self];
         _connectionStateTtl = [ARTDefault connectionStateTtl];
         _shouldImmediatelyReconnect = true;
+        _retryCount = 0;
         self.auth.delegate = self;
         
         [self.connection setState:ARTRealtimeInitialized];
@@ -629,12 +631,10 @@
                 _connectionLostAt = [NSDate date];
                 [self.logger verbose:@"RT:%p set connection lost time; expected suspension at %@ (ttl=%f)", self, [self suspensionTime], self.connectionStateTtl];
             }
-            NSTimeInterval retryInterval = self.options.disconnectedRetryTimeout;
-            // RTN15a - retry immediately if client was connected
-            if (stateChange.previous == ARTRealtimeConnected && _shouldImmediatelyReconnect) {
-                retryInterval = 0.1;
-            }
-            [stateChange setRetryIn:retryInterval];
+            BOOL immediately = stateChange.previous == ARTRealtimeConnected && _shouldImmediatelyReconnect; // RTN15a - retry immediately if client was connected
+            NSTimeInterval retryDelay = immediately ? 0.1 : [ARTRealtimeInternal retryDelayFromTimeout:self.options.disconnectedRetryTimeout
+                                                                                            retryCount:++_retryCount];
+            [stateChange setRetryIn:retryDelay];
             stateChangeEventListener = [self unlessStateChangesBefore:stateChange.retryIn do:^{
                 self->_connectionRetryFromDisconnectedListener = nil;
                 [self transition:ARTRealtimeConnecting];
@@ -643,6 +643,7 @@
             break;
         }
         case ARTRealtimeSuspended: {
+            _retryCount = 0;
             [_connectionRetryFromDisconnectedListener stopTimer];
             _connectionRetryFromDisconnectedListener = nil;
             [self.auth cancelAuthorization:nil];
@@ -656,6 +657,7 @@
             break;
         }
         case ARTRealtimeConnected: {
+            _retryCount = 0;
             _fallbacks = nil;
             _connectionLostAt = nil;
             if (stateChange.reason) {
@@ -1580,5 +1582,22 @@
     return _rest.device;
 }
 #endif
+
+#pragma mark - Utils
+
++ (NSTimeInterval)backoffCoefficientWithNumber:(NSInteger)number {
+    NSTimeInterval coeff = MIN((NSTimeInterval)(number + 2.0) / 3.0, 2.0);
+    return coeff;
+}
+
++ (NSTimeInterval)jitterCoefficient {
+    NSTimeInterval coeff = 1.0 - arc4random_uniform(10) * 0.02;
+    return coeff;
+}
+
++ (NSTimeInterval)retryDelayFromTimeout:(NSTimeInterval)timeout retryCount:(NSUInteger)retryCount {
+    timeout *= [self backoffCoefficientWithNumber:retryCount] * [self jitterCoefficient];
+    return timeout;
+}
 
 @end

@@ -106,6 +106,9 @@
 		84085A46293D1692007B4744 /* ARTUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 84085A42293D1692007B4744 /* ARTUtils.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		84085A47293D1692007B4744 /* ARTUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 84085A42293D1692007B4744 /* ARTUtils.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		84085A48293D1692007B4744 /* ARTUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 84085A42293D1692007B4744 /* ARTUtils.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		84085A4D293D1925007B4744 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085A49293D18D6007B4744 /* UtilsTests.swift */; };
+		84085A4E293D1926007B4744 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085A49293D18D6007B4744 /* UtilsTests.swift */; };
+		84085A4F293D1926007B4744 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085A49293D18D6007B4744 /* UtilsTests.swift */; };
 		841134782722205400CFA837 /* ARTArchiveTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 841134772722205400CFA837 /* ARTArchiveTests.m */; };
 		8412FDE72661AC37001FE9E6 /* AblyDeltaCodec.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8412FDE12661AC37001FE9E6 /* AblyDeltaCodec.xcframework */; };
 		8412FDED2661AC37001FE9E6 /* msgpack.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8412FDE32661AC37001FE9E6 /* msgpack.xcframework */; };
@@ -1025,6 +1028,7 @@
 		56190953238C3D3200A862A6 /* CryptoTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CryptoTest.m; sourceTree = "<group>"; };
 		84085A41293D1692007B4744 /* ARTUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ARTUtils.m; path = Private/ARTUtils.m; sourceTree = "<group>"; };
 		84085A42293D1692007B4744 /* ARTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ARTUtils.h; path = Private/ARTUtils.h; sourceTree = "<group>"; };
+		84085A49293D18D6007B4744 /* UtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilsTests.swift; sourceTree = "<group>"; };
 		841134772722205400CFA837 /* ARTArchiveTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARTArchiveTests.m; sourceTree = "<group>"; };
 		8412FDE12661AC37001FE9E6 /* AblyDeltaCodec.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AblyDeltaCodec.xcframework; path = Carthage/Build/AblyDeltaCodec.xcframework; sourceTree = "<group>"; };
 		8412FDE32661AC37001FE9E6 /* msgpack.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = msgpack.xcframework; path = Carthage/Build/msgpack.xcframework; sourceTree = "<group>"; };
@@ -1511,6 +1515,7 @@
 				D74CBC09212EC02C00D090E4 /* RestPaginatedTests.swift */,
 				851674EE1B7BA5CD00D35169 /* StatsTests.swift */,
 				D520C4DD2680A1E3000012B2 /* StringifiableTests.swift */,
+				84085A49293D18D6007B4744 /* UtilsTests.swift */,
 				EB1AE0CD1C5C3A4900D62250 /* UtilitiesTests.swift */,
 			);
 			path = Tests;
@@ -2530,7 +2535,7 @@
 					};
 					96BF61301A35B2AB004CF2B3 = {
 						CreatedOnToolsVersion = 6.1.1;
-						LastSwiftMigration = 1250;
+						LastSwiftMigration = 1410;
 					};
 					D7093C09219E2DB200723F17 = {
 						CreatedOnToolsVersion = 10.1;
@@ -2544,12 +2549,12 @@
 					};
 					D710D45A219495E2008F54AD = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1250;
+						LastSwiftMigration = 1410;
 						ProvisioningStyle = Automatic;
 					};
 					D710D474219495FC008F54AD = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1250;
+						LastSwiftMigration = 1410;
 						ProvisioningStyle = Automatic;
 					};
 					EB36308823804F7A00B83598 = {
@@ -2677,6 +2682,7 @@
 				851674EF1B7BA5CD00D35169 /* StatsTests.swift in Sources */,
 				EB1AE0CE1C5C3A4900D62250 /* UtilitiesTests.swift in Sources */,
 				848ED97326E50D0F0087E800 /* ObjcppTest.mm in Sources */,
+				84085A4D293D1925007B4744 /* UtilsTests.swift in Sources */,
 				215F75FF2922B30F009E0E76 /* ClientInformationTests.swift in Sources */,
 				D798554823EB96C000946BE2 /* DeltaCodecTests.swift in Sources */,
 				D74CBC0B212EC22800D090E4 /* RestPaginatedTests.swift in Sources */,
@@ -2817,6 +2823,7 @@
 				D7093C19219E465300723F17 /* TestUtilities.swift in Sources */,
 				560579DA24AF1BA900A4D03D /* ARTDefaultTests.swift in Sources */,
 				D7093C1C219E466400723F17 /* ReadmeExamplesTests.swift in Sources */,
+				84085A4E293D1926007B4744 /* UtilsTests.swift in Sources */,
 				21881E7B283BD0DF00CFD9E2 /* StringifiableTests.swift in Sources */,
 				D7093C27219E466E00723F17 /* RealtimeClientChannelsTests.swift in Sources */,
 				848ED97426E50D0F0087E800 /* ObjcppTest.mm in Sources */,
@@ -2851,6 +2858,7 @@
 				D7093C73219EE26000723F17 /* ReadmeExamplesTests.swift in Sources */,
 				560579DB24AF1BA900A4D03D /* ARTDefaultTests.swift in Sources */,
 				D7093C71219EE25800723F17 /* NSObject+TestSuite.m in Sources */,
+				84085A4F293D1926007B4744 /* UtilsTests.swift in Sources */,
 				D7093C70219EE25400723F17 /* TestUtilities.swift in Sources */,
 				D7093C80219EE26400723F17 /* StatsTests.swift in Sources */,
 				D7093C77219EE26400723F17 /* RestClientChannelTests.swift in Sources */,

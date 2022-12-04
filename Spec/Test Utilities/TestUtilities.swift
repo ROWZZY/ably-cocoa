@@ -360,6 +360,17 @@ class AblyTests {
         let items = jsonItems.map{ $0 }.map(CryptoTestItem.init)
         return (keyData, ivData, items)
     }
+    
+    class func backoffWithJitterDelaysForTimeout(_ timeout: TimeInterval) -> [TimeInterval] {
+        // This is calculated for seeding number = 5 (randomFraction gives [ 0.75, 0.65, 0.1, 0.72, 0.76 ])
+        [
+            1.0 * 1.0 * (1 - 0.75 * 0.2),
+            1.0 * 4.0/3.0 * (1 - 0.65 * 0.2),
+            1.0 * 5.0/3.0 * (1 - 0.1 * 0.2),
+            1.0 * 2.0 * (1 - 0.72 * 0.2),
+            1.0 * 2.0 * (1 - 0.76 * 0.2)
+        ]
+    }
 }
 
 class NSURLSessionServerTrustSync: NSObject, URLSessionDelegate, URLSessionTaskDelegate {

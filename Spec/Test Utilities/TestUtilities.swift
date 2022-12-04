@@ -1812,16 +1812,7 @@ extension HTTPURLResponse {
         //of the private NSDictionary subclass in CFNetwork directly
         return allHeaderFields as NSDictionary
     }
-
-    /**
-     Don't use 'allHeaderFields' property.
-     It's not case-insensitive.
-     Please use `value(forHTTPHeaderField:)` method.
-     - Warning: Don't use 'allHeaderFields' property. See discussion.
-     */
-    @available(*, deprecated, message: "Don't use 'allHeaderFields'. It's not case-insensitive. Please use 'value(forHTTPHeaderField:)' method")
-    open var _allHeaderFields: [AnyHashable : Any] { return [:] }
-
+    
     /**
      The value which corresponds to the given header
      field. Note that, in keeping with the HTTP RFC, HTTP header field

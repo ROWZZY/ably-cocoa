@@ -1,38 +1,14 @@
 #import "Ably.h"
 #import "ARTDefault+Private.h"
 #import "ARTNSArray+ARTFunctional.h"
-#import <sys/utsname.h>
+#import "ARTClientInformation+Private.h"
 
-// NSOperatingSystemVersion has NSInteger as version components for some reason, so mitigate it here.
-static inline UInt32 conformVersionComponent(const NSInteger component) {
-    return (component < 0) ? 0 : (UInt32)component;
-}
-
-NSString *const ARTDefault_apiVersion = @"1.2";
-NSString *const ARTDefault_libraryVersion = @"1.2.16";
+static NSString *const ARTDefault_apiVersion = @"1.2";
 
 NSString *const ARTDefaultProduction = @"production";
 
-NSString *const ARTDefault_restHost = @"rest.ably.io";
-NSString *const ARTDefault_realtimeHost = @"realtime.ably.io";
-NSString *const ARTDefault_ablyBundleId = @"io.ably.Ably";
-NSString *const ARTDefault_bundleVersionKey = @"CFBundleShortVersionString";
-NSString *const ARTDefault_bundleBuildNumberKey = @"CFBundleVersion";
-NSString *const ARTDefault_platform = @"cocoa";
-NSString *const ARTDefault_libraryName = @"ably-cocoa";
-NSString *const ARTDefault_variant =
-    #if TARGET_OS_IOS
-        @".ios"
-    #elif TARGET_OS_TV
-        @".tvos"
-    #elif TARGET_OS_WATCH
-        @".watchos"
-    #elif TARGET_OS_OSX
-        @".macos"
-    #else
-        @""
-    #endif
-    ;
+static NSString *const ARTDefault_restHost = @"rest.ably.io";
+static NSString *const ARTDefault_realtimeHost = @"realtime.ably.io";
 
 static NSTimeInterval _realtimeRequestTimeout = 10.0;
 static NSTimeInterval _connectionStateTtl = 60.0;
@@ -45,7 +21,7 @@ static NSInteger _maxMessageSize = 65536;
 }
 
 + (NSString *)libraryVersion {
-    return ARTDefault_libraryVersion;
+    return ARTClientInformation_libraryVersion;
 }
 
 + (NSArray*)fallbackHostsWithEnvironment:(NSString *)environment {
@@ -116,65 +92,12 @@ static NSInteger _maxMessageSize = 65536;
     }
 }
 
-+ (NSString *)bundleVersion {
-    NSDictionary *infoDictionary = [[NSBundle bundleForClass: [ARTDefault class]] infoDictionary];
-    return infoDictionary[ARTDefault_bundleVersionKey];
-}
-
-+ (NSString *)bundleBuildNumber {
-    NSDictionary *infoDictionary = [[NSBundle bundleForClass: [ARTDefault class]] infoDictionary];
-    return infoDictionary[ARTDefault_bundleBuildNumberKey];
-}
-
-+ (NSString *)osName {
-    return
-        #if TARGET_OS_IOS
-            @"iOS"
-        #elif TARGET_OS_TV
-            @"tvOS"
-        #elif TARGET_OS_WATCH
-            @"watchOS"
-        #elif TARGET_OS_OSX
-            @"macOS"
-        #else
-            nil
-        #endif
-        ;
-}
-
-+ (NSString *)osVersionString {
-    static NSString *versionString;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
-        versionString = [NSString stringWithFormat:@"%lu.%lu.%lu",
-             (unsigned long)conformVersionComponent(version.majorVersion),
-             (unsigned long)conformVersionComponent(version.minorVersion),
-             (unsigned long)conformVersionComponent(version.patchVersion)];
-    });
-    return versionString;
-}
-
-+ (NSString *)deviceModel {
-    struct utsname systemInfo;
-    if (uname(&systemInfo) < 0) {
-        return nil;
-    }
-    return [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-}
-
 + (NSString *)libraryAgent {
-    NSMutableString *agent = [NSMutableString stringWithFormat:@"%@/%@", ARTDefault_libraryName, ARTDefault_libraryVersion];
-    return agent;
+    return [ARTClientInformation libraryAgentIdentifier];
 }
 
 + (NSString *)platformAgent {
-    NSMutableString *agent = [NSMutableString string];
-    NSString *osName = [self osName];
-    if (osName != nil) {
-        [agent appendFormat:@"%@/%@", osName, [self osVersionString]];
-    }
-    return agent;
+    return [ARTClientInformation platformAgentIdentifier];
 }
 
 @end

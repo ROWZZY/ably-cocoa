@@ -21,6 +21,18 @@
 		21447D3B254A2ECB00B3905A /* ARTSRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 217D181B25421FED00DFF07E /* ARTSRWebSocket.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		21447D40254A2ECE00B3905A /* ARTSRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 217D181B25421FED00DFF07E /* ARTSRWebSocket.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		21447D45254A2ED100B3905A /* ARTSRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 217D181B25421FED00DFF07E /* ARTSRWebSocket.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		215F75F82922B1DB009E0E76 /* ARTClientInformation.h in Headers */ = {isa = PBXBuildFile; fileRef = 215F75F62922B1DB009E0E76 /* ARTClientInformation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		215F75F92922B1DB009E0E76 /* ARTClientInformation.h in Headers */ = {isa = PBXBuildFile; fileRef = 215F75F62922B1DB009E0E76 /* ARTClientInformation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		215F75FA2922B1DB009E0E76 /* ARTClientInformation.h in Headers */ = {isa = PBXBuildFile; fileRef = 215F75F62922B1DB009E0E76 /* ARTClientInformation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		215F75FB2922B1DB009E0E76 /* ARTClientInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 215F75F72922B1DB009E0E76 /* ARTClientInformation.m */; };
+		215F75FC2922B1DB009E0E76 /* ARTClientInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 215F75F72922B1DB009E0E76 /* ARTClientInformation.m */; };
+		215F75FD2922B1DB009E0E76 /* ARTClientInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 215F75F72922B1DB009E0E76 /* ARTClientInformation.m */; };
+		215F75FF2922B30F009E0E76 /* ClientInformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215F75FE2922B30F009E0E76 /* ClientInformationTests.swift */; };
+		215F76002922B30F009E0E76 /* ClientInformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215F75FE2922B30F009E0E76 /* ClientInformationTests.swift */; };
+		215F76012922B30F009E0E76 /* ClientInformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215F75FE2922B30F009E0E76 /* ClientInformationTests.swift */; };
+		215F76032922C76C009E0E76 /* ARTClientInformation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 215F76022922C76C009E0E76 /* ARTClientInformation+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		215F76042922C76C009E0E76 /* ARTClientInformation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 215F76022922C76C009E0E76 /* ARTClientInformation+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		215F76052922C76C009E0E76 /* ARTClientInformation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 215F76022922C76C009E0E76 /* ARTClientInformation+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		217D1829254222F500DFF07E /* ARTSRHash.m in Sources */ = {isa = PBXBuildFile; fileRef = 217D180425421FED00DFF07E /* ARTSRHash.m */; };
 		217D182A254222F500DFF07E /* ARTSRRandom.m in Sources */ = {isa = PBXBuildFile; fileRef = 217D180025421FED00DFF07E /* ARTSRRandom.m */; };
 		217D182B254222F500DFF07E /* ARTSRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 217D181F25421FED00DFF07E /* ARTSRWebSocket.m */; };
@@ -100,9 +112,6 @@
 		8412FDFE2661AC7B001FE9E6 /* Nimble.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8412FDF42661AC7B001FE9E6 /* Nimble.xcframework */; };
 		8412FDFF2661AC7B001FE9E6 /* Nimble.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8412FDF42661AC7B001FE9E6 /* Nimble.xcframework */; };
 		8412FE002661AC7B001FE9E6 /* Nimble.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8412FDF42661AC7B001FE9E6 /* Nimble.xcframework */; };
-		84569FA626B46F4E00457CF5 /* ClientOptionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84569FA226B46ADC00457CF5 /* ClientOptionsTests.swift */; };
-		84569FA726B46F4F00457CF5 /* ClientOptionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84569FA226B46ADC00457CF5 /* ClientOptionsTests.swift */; };
-		84569FA826B46F5100457CF5 /* ClientOptionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84569FA226B46ADC00457CF5 /* ClientOptionsTests.swift */; };
 		848ED97326E50D0F0087E800 /* ObjcppTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848ED97226E50D0F0087E800 /* ObjcppTest.mm */; settings = {COMPILER_FLAGS = "-fmodules"; }; };
 		848ED97426E50D0F0087E800 /* ObjcppTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848ED97226E50D0F0087E800 /* ObjcppTest.mm */; settings = {COMPILER_FLAGS = "-fmodules"; }; };
 		848ED97526E50D0F0087E800 /* ObjcppTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848ED97226E50D0F0087E800 /* ObjcppTest.mm */; settings = {COMPILER_FLAGS = "-fmodules"; }; };
@@ -962,6 +971,10 @@
 		1C6C18A21ADFDAB100AB79E4 /* ARTLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARTLog.m; sourceTree = "<group>"; };
 		1CD8DC9D1B1C7315007EAF36 /* ARTDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARTDefault.h; sourceTree = "<group>"; };
 		1CD8DC9E1B1C7315007EAF36 /* ARTDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARTDefault.m; sourceTree = "<group>"; };
+		215F75F62922B1DB009E0E76 /* ARTClientInformation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARTClientInformation.h; sourceTree = "<group>"; };
+		215F75F72922B1DB009E0E76 /* ARTClientInformation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARTClientInformation.m; sourceTree = "<group>"; };
+		215F75FE2922B30F009E0E76 /* ClientInformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientInformationTests.swift; sourceTree = "<group>"; };
+		215F76022922C76C009E0E76 /* ARTClientInformation+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ARTClientInformation+Private.h"; sourceTree = "<group>"; };
 		217D17F125421FED00DFF07E /* ARTSRProxyConnect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARTSRProxyConnect.h; sourceTree = "<group>"; };
 		217D17F225421FED00DFF07E /* ARTSRProxyConnect.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARTSRProxyConnect.m; sourceTree = "<group>"; };
 		217D17F425421FED00DFF07E /* ARTSRRunLoopThread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARTSRRunLoopThread.m; sourceTree = "<group>"; };
@@ -1010,7 +1023,6 @@
 		8412FDF12661AC7A001FE9E6 /* Aspects.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Aspects.xcframework; path = Carthage/Build/Aspects.xcframework; sourceTree = "<group>"; };
 		8412FDF22661AC7B001FE9E6 /* SwiftyJSON.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SwiftyJSON.xcframework; path = Carthage/Build/SwiftyJSON.xcframework; sourceTree = "<group>"; };
 		8412FDF42661AC7B001FE9E6 /* Nimble.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Nimble.xcframework; path = Carthage/Build/Nimble.xcframework; sourceTree = "<group>"; };
-		84569FA226B46ADC00457CF5 /* ClientOptionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientOptionsTests.swift; sourceTree = "<group>"; };
 		848ED97226E50D0F0087E800 /* ObjcppTest.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ObjcppTest.mm; sourceTree = "<group>"; };
 		850BFB4A1B79323C009D0ADD /* ARTPaginatedResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARTPaginatedResult.h; sourceTree = "<group>"; };
 		850BFB4B1B79323C009D0ADD /* ARTPaginatedResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARTPaginatedResult.m; sourceTree = "<group>"; };
@@ -1466,7 +1478,7 @@
 				841134772722205400CFA837 /* ARTArchiveTests.m */,
 				560579D824AF1BA900A4D03D /* ARTDefaultTests.swift */,
 				D7C1B8761BBEA81A0087B55F /* AuthTests.swift */,
-				84569FA226B46ADC00457CF5 /* ClientOptionsTests.swift */,
+				215F75FE2922B30F009E0E76 /* ClientInformationTests.swift */,
 				EB7913A71C6E54C3000ABF9B /* CryptoTests.swift */,
 				56190953238C3D3200A862A6 /* CryptoTest.m */,
 				D798554723EB96C000946BE2 /* DeltaCodecTests.swift */,
@@ -1792,6 +1804,9 @@
 				D54C55A626957FDE00729EC4 /* ARTNSURL+ARTUtils.m */,
 				D5BB213526AAA60500AA5F3E /* ARTNSError+ARTUtils.h */,
 				D5BB213426AAA60500AA5F3E /* ARTNSError+ARTUtils.m */,
+				215F75F62922B1DB009E0E76 /* ARTClientInformation.h */,
+				215F75F72922B1DB009E0E76 /* ARTClientInformation.m */,
+				215F76022922C76C009E0E76 /* ARTClientInformation+Private.h */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1913,6 +1928,7 @@
 				961343D81A42E0B7006DC822 /* ARTClientOptions.h in Headers */,
 				D7534C321D79E5C20054C182 /* Ably.h in Headers */,
 				D777EEE0206285CF002EBA03 /* ARTDeviceIdentityTokenDetails.h in Headers */,
+				215F76032922C76C009E0E76 /* ARTClientInformation+Private.h in Headers */,
 				96BF615E1A35C1C8004CF2B3 /* ARTTypes.h in Headers */,
 				EB503C881C7E4A090053AF00 /* ARTClientOptions+Private.h in Headers */,
 				EB2D84F71CD75CCE00F23CDA /* ARTReachability.h in Headers */,
@@ -2032,6 +2048,7 @@
 				D7D8F82B1BC2C706009718F2 /* ARTTokenRequest.h in Headers */,
 				D5BB211126AA993E00AA5F3E /* ARTNSURL+ARTUtils.h in Headers */,
 				EB1AE0CC1C5C1EB200D62250 /* ARTEventEmitter+Private.h in Headers */,
+				215F75F82922B1DB009E0E76 /* ARTClientInformation.h in Headers */,
 				D7DF738A1EA645300013CD36 /* ARTLocalDeviceStorage.h in Headers */,
 				960D07931A45F1D800ED8C8C /* ARTCrypto.h in Headers */,
 				D5BB20FC26A7F3FF00AA5F3E /* NSURLRequest+ARTSRWebSocket.h in Headers */,
@@ -2131,6 +2148,7 @@
 				D76F153D23DB012100B5133C /* ARTRealtimeChannelOptions.h in Headers */,
 				D5D83C0826AAED1A00AADC8E /* ARTStringifiable+Private.h in Headers */,
 				D710D48021949A42008F54AD /* ARTDefault.h in Headers */,
+				215F76042922C76C009E0E76 /* ARTClientInformation+Private.h in Headers */,
 				D710D58021949D28008F54AD /* ARTAuthDetails.h in Headers */,
 				D710D54D21949C66008F54AD /* ARTLocalDevice+Private.h in Headers */,
 				D710D4D421949BF9008F54AD /* ARTRealtime.h in Headers */,
@@ -2176,6 +2194,7 @@
 				D710D4BF21949B6C008F54AD /* ARTNSMutableRequest+ARTRest.h in Headers */,
 				D710D5BE21949D4F008F54AD /* ARTBaseMessage+Private.h in Headers */,
 				D5BB20FE26A7F50000AA5F3E /* ARTSRPinningSecurityPolicy.h in Headers */,
+				215F75F92922B1DB009E0E76 /* ARTClientInformation.h in Headers */,
 				D5BB210126A80A9C00AA5F3E /* NSRunLoop+ARTSRWebSocket.h in Headers */,
 				D5C0CB3E268317B500C06521 /* NSURLQueryItem+Stringifiable.h in Headers */,
 				D5BB210026A80A9000AA5F3E /* NSURLRequest+ARTSRWebSocket.h in Headers */,
@@ -2273,6 +2292,7 @@
 				D710D52D21949C44008F54AD /* ARTDeviceIdentityTokenDetails.h in Headers */,
 				D76F153E23DB012100B5133C /* ARTRealtimeChannelOptions.h in Headers */,
 				D710D48221949A43008F54AD /* ARTDefault.h in Headers */,
+				215F76052922C76C009E0E76 /* ARTClientInformation+Private.h in Headers */,
 				D710D5A621949D2A008F54AD /* ARTAuthDetails.h in Headers */,
 				D710D55321949C67008F54AD /* ARTLocalDevice+Private.h in Headers */,
 				D710D4E421949BFB008F54AD /* ARTRealtime.h in Headers */,
@@ -2318,6 +2338,7 @@
 				D710D4C121949B6D008F54AD /* ARTNSMutableRequest+ARTRest.h in Headers */,
 				D710D5CE21949D50008F54AD /* ARTBaseMessage+Private.h in Headers */,
 				D5BB20FF26A7F50800AA5F3E /* ARTSRPinningSecurityPolicy.h in Headers */,
+				215F75FA2922B1DB009E0E76 /* ARTClientInformation.h in Headers */,
 				D5BB210326A80AA700AA5F3E /* NSRunLoop+ARTSRWebSocket.h in Headers */,
 				D54C554A268B31E500729EC4 /* ARTNSMutableDictionary+ARTDictionaryUtil.h in Headers */,
 				D5BB210226A80AA400AA5F3E /* NSURLRequest+ARTSRWebSocket.h in Headers */,
@@ -2636,7 +2657,6 @@
 				D72768211C9C19040022F8B2 /* RestClientPresenceTests.swift in Sources */,
 				D780846E1C68B3E50083009D /* NSObject+TestSuite.m in Sources */,
 				21881E7A283BD08300CFD9E2 /* GCDTests.swift in Sources */,
-				84569FA626B46F4E00457CF5 /* ClientOptionsTests.swift in Sources */,
 				D7093CA9219EFA8A00723F17 /* MockDeviceStorage.swift in Sources */,
 				D7CEF1321C8DD3BC004FB242 /* RealtimeClientPresenceTests.swift in Sources */,
 				853ED7C41B7A1A3C006F1C6F /* RestClientStatsTests.swift in Sources */,
@@ -2644,6 +2664,7 @@
 				851674EF1B7BA5CD00D35169 /* StatsTests.swift in Sources */,
 				EB1AE0CE1C5C3A4900D62250 /* UtilitiesTests.swift in Sources */,
 				848ED97326E50D0F0087E800 /* ObjcppTest.mm in Sources */,
+				215F75FF2922B30F009E0E76 /* ClientInformationTests.swift in Sources */,
 				D798554823EB96C000946BE2 /* DeltaCodecTests.swift in Sources */,
 				D74CBC0B212EC22800D090E4 /* RestPaginatedTests.swift in Sources */,
 				D72304701BB72CED00F1ABDA /* RealtimeClientTests.swift in Sources */,
@@ -2696,6 +2717,7 @@
 				D7D8F82C1BC2C706009718F2 /* ARTTokenRequest.m in Sources */,
 				D7D8F8261BC2C691009718F2 /* ARTTokenDetails.m in Sources */,
 				D75A3F1C1DDE5B62002A4AAD /* ARTGCD.m in Sources */,
+				215F75FB2922B1DB009E0E76 /* ARTClientInformation.m in Sources */,
 				1C2B0FFE1B136A6D00E3633C /* ARTPresenceMap.m in Sources */,
 				217D182A254222F500DFF07E /* ARTSRRandom.m in Sources */,
 				960D07941A45F1D800ED8C8C /* ARTCrypto.m in Sources */,
@@ -2788,13 +2810,13 @@
 				D7093C24219E466E00723F17 /* RealtimeClientTests.swift in Sources */,
 				D7093C1F219E466E00723F17 /* RestClientStatsTests.swift in Sources */,
 				D7093C1A219E465C00723F17 /* NSObject+TestSuite.m in Sources */,
+				215F76002922B30F009E0E76 /* ClientInformationTests.swift in Sources */,
 				D7093C1E219E466900723F17 /* RestClientTests.swift in Sources */,
 				D7093C2B219E466E00723F17 /* CryptoTests.swift in Sources */,
 				D7093C20219E466E00723F17 /* RestClientChannelTests.swift in Sources */,
 				EB1B53FA22F85CE4006A59AC /* ObjectLifetimesTests.swift in Sources */,
 				D7093C2A219E466E00723F17 /* UtilitiesTests.swift in Sources */,
 				D798554923EB96C000946BE2 /* DeltaCodecTests.swift in Sources */,
-				84569FA726B46F4F00457CF5 /* ClientOptionsTests.swift in Sources */,
 				D7093C21219E466E00723F17 /* RestClientChannelsTests.swift in Sources */,
 				D7093C26219E466E00723F17 /* RealtimeClientChannelTests.swift in Sources */,
 				D7093C22219E466E00723F17 /* RestClientPresenceTests.swift in Sources */,
@@ -2816,12 +2838,12 @@
 				560579DB24AF1BA900A4D03D /* ARTDefaultTests.swift in Sources */,
 				D7093C71219EE25800723F17 /* NSObject+TestSuite.m in Sources */,
 				D7093C70219EE25400723F17 /* TestUtilities.swift in Sources */,
-				84569FA826B46F5100457CF5 /* ClientOptionsTests.swift in Sources */,
 				D7093C80219EE26400723F17 /* StatsTests.swift in Sources */,
 				D7093C77219EE26400723F17 /* RestClientChannelTests.swift in Sources */,
 				D520C4E32680A1FC000012B2 /* StringifiableTests.swift in Sources */,
 				D7093C7E219EE26400723F17 /* RealtimeClientChannelsTests.swift in Sources */,
 				D7093C79219EE26400723F17 /* RestClientPresenceTests.swift in Sources */,
+				215F76012922B30F009E0E76 /* ClientInformationTests.swift in Sources */,
 				D7093C78219EE26400723F17 /* RestClientChannelsTests.swift in Sources */,
 				D7093C76219EE26400723F17 /* RestClientStatsTests.swift in Sources */,
 				D7093C82219EE26400723F17 /* CryptoTests.swift in Sources */,
@@ -2874,6 +2896,7 @@
 				D710D5E221949D78008F54AD /* ARTTypes.m in Sources */,
 				D710D5DF21949D78008F54AD /* ARTDataEncoder.m in Sources */,
 				D710D4EE21949C0D008F54AD /* ARTConnection.m in Sources */,
+				215F75FC2922B1DB009E0E76 /* ARTClientInformation.m in Sources */,
 				D710D4C921949BAA008F54AD /* ARTWebSocketTransport.m in Sources */,
 				217D1841254222F700DFF07E /* ARTSRRandom.m in Sources */,
 				D710D5DD21949D78008F54AD /* ARTPresenceMessage.m in Sources */,
@@ -2984,6 +3007,7 @@
 				D710D60821949D79008F54AD /* ARTTypes.m in Sources */,
 				D710D60521949D79008F54AD /* ARTDataEncoder.m in Sources */,
 				D710D4FE21949C0E008F54AD /* ARTConnection.m in Sources */,
+				215F75FD2922B1DB009E0E76 /* ARTClientInformation.m in Sources */,
 				D710D4CD21949BAB008F54AD /* ARTWebSocketTransport.m in Sources */,
 				217D1858254222F900DFF07E /* ARTSRRandom.m in Sources */,
 				D710D60321949D79008F54AD /* ARTPresenceMessage.m in Sources */,

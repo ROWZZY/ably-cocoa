@@ -12,11 +12,8 @@
 #import "ARTSRRunLoopThread.h"
 
 @interface ARTSRRunLoopThread ()
-{
-    dispatch_group_t _waitGroup;
-}
 
-@property (nonatomic, strong, readwrite) NSRunLoop *runLoop;
+@property (atomic, strong, readwrite) NSRunLoop *runLoop;
 
 @end
 
@@ -34,21 +31,10 @@
     return thread;
 }
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        _waitGroup = dispatch_group_create();
-        dispatch_group_enter(_waitGroup);
-    }
-    return self;
-}
-
 - (void)main
 {
     @autoreleasepool {
-        _runLoop = [NSRunLoop currentRunLoop];
-        dispatch_group_leave(_waitGroup);
+        self.runLoop = [NSRunLoop currentRunLoop];
 
         // Add an empty run loop source to prevent runloop from spinning.
         CFRunLoopSourceContext sourceCtx = {
@@ -72,12 +58,6 @@
         }
         assert(NO);
     }
-}
-
-- (NSRunLoop *)runLoop;
-{
-    dispatch_group_wait(_waitGroup, DISPATCH_TIME_FOREVER);
-    return _runLoop;
 }
 
 @end

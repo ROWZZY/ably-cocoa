@@ -49,10 +49,10 @@ jobs:
         # described in CONTRIBUTING.md.
       - name: Prepare built framework for archiving
         run: |
-          mkdir carthage-build-framework
-          mv Ably.framework.zip carthage-built-framework
+          mkdir -p carthage-built-framework-artifact-contents/carthage-built-framework
+          mv Ably.framework.zip carthage-built-framework-artifact-contents/carthage-built-framework
       - name: Archive built framework
         uses: actions/upload-artifact@v3
         with:
           name: carthage-built-framework
-          path: carthage-built-framework
+          path: carthage-built-framework-artifact-contents

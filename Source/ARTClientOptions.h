@@ -193,21 +193,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURL *)realtimeUrl;
 
 /**
- Method for adding additional agent to the resulting agent header.
- 
- This should only be used by Ably-authored SDKs.
- If you need to use this then you have to add the agent to the agents.json file:
- https://github.com/ably/ably-common/blob/main/protocol/agents.json
- 
- Agent versions are optional, if you don't want to specify it pass `nil`.
-*/
-- (void)addAgent:(NSString *)agentName version:(NSString * _Nullable)version;
-
-/**
- * A set of additional entries for the Ably agent header. Each entry can be a key string or set of key-value pairs.
- * Consists of `+[ARTDefault libraryAgent]`, `+[ARTDefault platformAgent]` and items added with `-[ARTClientOptions addAgent:version:]` function.
+ * A set of additional entries for the Ably agent header. Each entry can be a key string or set of key-value pairs. This should only be used by Ably-authored SDKs. If an agent does not have a version, represent this by using the `ARTClientInformationAgentNotVersioned` pointer as the version.
  */
-- (NSString *)agents;
+@property (nonatomic, copy, nullable) NSDictionary<NSString *, NSString *> *agents;
 
 @end
 

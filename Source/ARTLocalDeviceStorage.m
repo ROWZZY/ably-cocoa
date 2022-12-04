@@ -152,23 +152,10 @@
 
 - (BOOL)keychainDeletePasswordForService:(NSString *)serviceName account:(NSString *)account error:(NSError *__autoreleasing *)error {
     NSMutableDictionary *query = [self newKeychainQueryForService:serviceName account:account];
-    OSStatus status;
-    #if TARGET_OS_IPHONE
-    status = SecItemDelete((__bridge CFDictionaryRef)query);
-    #else
-    CFTypeRef result = NULL;
-    [query setObject:@YES forKey:(__bridge id)kSecReturnRef];
-    status = SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
-    if (status == errSecSuccess) {
-        status = SecKeychainItemDelete((SecKeychainItemRef)result);
-        CFRelease(result);
-    }
-    #endif
-
+    OSStatus status = SecItemDelete((__bridge CFDictionaryRef)query);
     if (status != errSecSuccess && error != NULL) {
         *error = [self keychainErrorWithCode:status];
     }
-
     return (status == errSecSuccess);
 }
 

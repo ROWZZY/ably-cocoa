@@ -4,6 +4,7 @@
 #import "ARTRest+Private.h"
 #import "ARTProtocolMessage.h"
 #import "ARTClientOptions.h"
+#import "ARTClientOptions+Private.h"
 #import "ARTTokenParams.h"
 #import "ARTTokenDetails.h"
 #import "ARTStatus.h"
@@ -16,6 +17,7 @@
 #import "NSURLQueryItem+Stringifiable.h"
 #import "ARTNSMutableDictionary+ARTDictionaryUtil.h"
 #import "ARTStringifiable.h"
+#import "ARTClientInformation.h"
 
 enum {
     ARTWsNeverConnected = -1,
@@ -177,7 +179,7 @@ Class configuredWebsocketClass = nil;
     [queryItems addValueAsURLQueryItem:[ARTDefault apiVersion] forKey:@"v"];
     
     // Lib
-    [queryItems addValueAsURLQueryItem:[options agents] forKey:@"agent"];
+    [queryItems addValueAsURLQueryItem:[ARTClientInformation agentIdentifierWithAdditionalAgents:options.agents] forKey:@"agent"];
 
     // Transport Params
     if (options.transportParams != nil) {

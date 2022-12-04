@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ARTSRRunLoopThread : NSThread
 
-@property (nonatomic, strong, readonly) NSRunLoop *runLoop;
+@property (atomic, strong, readonly) NSRunLoop *runLoop;
 
 + (instancetype)sharedThread;
 

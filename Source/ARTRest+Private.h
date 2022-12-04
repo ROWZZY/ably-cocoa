@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 #if TARGET_OS_IOS
 @property (nonnull, nonatomic, readonly, getter=device) ARTLocalDevice *device;
 @property (nonnull, nonatomic, readonly, getter=device_nosync) ARTLocalDevice *device_nosync;
+@property (nonatomic) id<ARTDeviceStorage> storage;
 #endif
 
 @property (nonatomic, strong, readonly) ARTClientOptions *options;
@@ -32,8 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite, strong, atomic, nullable) NSString *prioritizedHost;
 
 @property (nonatomic, strong) id<ARTHTTPExecutor> httpExecutor;
-@property (nonatomic) id<ARTDeviceStorage> storage;
-
 @property (nonatomic, readonly, getter=getBaseUrl) NSURL *baseUrl;
 @property (nullable, nonatomic, copy) NSString *currentFallbackHost;
 @property (readonly, nonatomic) CFAbsoluteTime fallbackRetryExpiration;

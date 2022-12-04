@@ -1,5 +1,27 @@
 # Change Log
 
+## [1.2.18](https://github.com/ably/ably-cocoa/tree/1.2.18)
+
+[Full Changelog](https://github.com/ably/ably-cocoa/compare/1.2.17...1.2.18)
+
+**Fixed bugs:**
+
+- Xcode 14 Thread Performance Checker warns of a priority inversion from SocketRocket code [\#1516](https://github.com/ably/ably-cocoa/issues/1516)
+
+## [1.2.17](https://github.com/ably/ably-cocoa/tree/1.2.17)
+
+[Full Changelog](https://github.com/ably/ably-cocoa/compare/1.2.16...1.2.17)
+
+**Fixed bugs:**
+
+- Ably `agents` client option is implemented incorrectly [\#1525](https://github.com/ably/ably-cocoa/issues/1525)
+
+**Closed issues:**
+
+- Implement API for fetching Agent identifier [\#1530](https://github.com/ably/ably-cocoa/issues/1530)
+- Fix error on trying to override `HTTPURLResponse._allHeaderFields` with Xcode 14 [\#1522](https://github.com/ably/ably-cocoa/issues/1522)
+- Replace usage of `SecKeychainItemDelete` to fix deprecation error in Xcode 14 [\#1521](https://github.com/ably/ably-cocoa/issues/1521)
+
 ## [1.2.16](https://github.com/ably/ably-cocoa/tree/1.2.16)
 
 [Full Changelog](https://github.com/ably/ably-cocoa/compare/1.2.15...1.2.16)

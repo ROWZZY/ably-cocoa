@@ -23,6 +23,7 @@
 #import "ARTConnection+Private.h"
 #import "ARTRestChannels+Private.h"
 #import "ARTEventEmitter+Private.h"
+#import "ARTUtils.h"
 #if TARGET_OS_IPHONE
 #import "ARTPushChannel+Private.h"
 #endif
@@ -609,8 +610,8 @@ dispatch_sync(_queue, ^{
         case ARTRealtimeChannelSuspended:
             [_attachedEventEmitter emit:nil with:status.errorInfo];
             if (self.realtime.shouldSendEvents) {
-                NSTimeInterval retryDelay = [ARTRealtimeInternal retryDelayFromTimeout:self.realtime.options.channelRetryTimeout
-                                                                            retryCount:++_retryCount];
+                NSTimeInterval retryDelay = [ARTUtils retryDelayFromInitialRetryTimeout:self.realtime.options.channelRetryTimeout
+                                                                         forRetryNumber:++_retryCount];
                 channelRetryListener = [self unlessStateChangesBefore:retryDelay do:^{
                     [self.realtime.logger debug:__FILE__ line:__LINE__ message:@"RT:%p C:%p (%@) reattach initiated by retry timeout", self->_realtime, self, self.name];
                     [self reattachWithReason:nil callback:^(ARTErrorInfo *errorInfo) {

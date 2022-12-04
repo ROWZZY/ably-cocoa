@@ -37,6 +37,7 @@
 #import "ARTRealtimeChannels+Private.h"
 #import "ARTPush+Private.h"
 #import "ARTQueuedDealloc.h"
+#import "ARTUtils.h"
 
 @interface ARTConnectionStateChange ()
 
@@ -632,8 +633,8 @@
                 [self.logger verbose:@"RT:%p set connection lost time; expected suspension at %@ (ttl=%f)", self, [self suspensionTime], self.connectionStateTtl];
             }
             BOOL immediately = stateChange.previous == ARTRealtimeConnected && _shouldImmediatelyReconnect; // RTN15a - retry immediately if client was connected
-            NSTimeInterval retryDelay = immediately ? 0.1 : [ARTRealtimeInternal retryDelayFromTimeout:self.options.disconnectedRetryTimeout
-                                                                                            retryCount:++_retryCount];
+            NSTimeInterval retryDelay = immediately ? 0.1 : [ARTUtils retryDelayFromInitialRetryTimeout:self.options.disconnectedRetryTimeout
+                                                                                         forRetryNumber:++_retryCount];
             [stateChange setRetryIn:retryDelay];
             stateChangeEventListener = [self unlessStateChangesBefore:stateChange.retryIn do:^{
                 self->_connectionRetryFromDisconnectedListener = nil;
@@ -1582,22 +1583,5 @@
     return _rest.device;
 }
 #endif
-
-#pragma mark - Utils
-
-+ (NSTimeInterval)backoffCoefficientWithNumber:(NSInteger)number {
-    NSTimeInterval coeff = MIN((NSTimeInterval)(number + 2.0) / 3.0, 2.0);
-    return coeff;
-}
-
-+ (NSTimeInterval)jitterCoefficient {
-    NSTimeInterval coeff = 1.0 - arc4random_uniform(10) * 0.02;
-    return coeff;
-}
-
-+ (NSTimeInterval)retryDelayFromTimeout:(NSTimeInterval)timeout retryCount:(NSUInteger)retryCount {
-    timeout *= [self backoffCoefficientWithNumber:retryCount] * [self jitterCoefficient];
-    return timeout;
-}
 
 @end

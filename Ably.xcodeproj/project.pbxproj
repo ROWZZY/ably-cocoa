@@ -100,6 +100,12 @@
 		56190954238C3D3200A862A6 /* CryptoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 56190953238C3D3200A862A6 /* CryptoTest.m */; };
 		56190955238C3D3200A862A6 /* CryptoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 56190953238C3D3200A862A6 /* CryptoTest.m */; };
 		56190956238C3D3200A862A6 /* CryptoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 56190953238C3D3200A862A6 /* CryptoTest.m */; };
+		84085A43293D1692007B4744 /* ARTUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 84085A41293D1692007B4744 /* ARTUtils.m */; };
+		84085A44293D1692007B4744 /* ARTUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 84085A41293D1692007B4744 /* ARTUtils.m */; };
+		84085A45293D1692007B4744 /* ARTUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 84085A41293D1692007B4744 /* ARTUtils.m */; };
+		84085A46293D1692007B4744 /* ARTUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 84085A42293D1692007B4744 /* ARTUtils.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		84085A47293D1692007B4744 /* ARTUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 84085A42293D1692007B4744 /* ARTUtils.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		84085A48293D1692007B4744 /* ARTUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 84085A42293D1692007B4744 /* ARTUtils.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		841134782722205400CFA837 /* ARTArchiveTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 841134772722205400CFA837 /* ARTArchiveTests.m */; };
 		8412FDE72661AC37001FE9E6 /* AblyDeltaCodec.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8412FDE12661AC37001FE9E6 /* AblyDeltaCodec.xcframework */; };
 		8412FDED2661AC37001FE9E6 /* msgpack.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8412FDE32661AC37001FE9E6 /* msgpack.xcframework */; };
@@ -1017,6 +1023,8 @@
 		217D182025421FED00DFF07E /* ARTSRSecurityPolicy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARTSRSecurityPolicy.h; sourceTree = "<group>"; };
 		560579D824AF1BA900A4D03D /* ARTDefaultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARTDefaultTests.swift; sourceTree = "<group>"; };
 		56190953238C3D3200A862A6 /* CryptoTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CryptoTest.m; sourceTree = "<group>"; };
+		84085A41293D1692007B4744 /* ARTUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ARTUtils.m; path = Private/ARTUtils.m; sourceTree = "<group>"; };
+		84085A42293D1692007B4744 /* ARTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ARTUtils.h; path = Private/ARTUtils.h; sourceTree = "<group>"; };
 		841134772722205400CFA837 /* ARTArchiveTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARTArchiveTests.m; sourceTree = "<group>"; };
 		8412FDE12661AC37001FE9E6 /* AblyDeltaCodec.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AblyDeltaCodec.xcframework; path = Carthage/Build/AblyDeltaCodec.xcframework; sourceTree = "<group>"; };
 		8412FDE32661AC37001FE9E6 /* msgpack.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = msgpack.xcframework; path = Carthage/Build/msgpack.xcframework; sourceTree = "<group>"; };
@@ -1804,6 +1812,8 @@
 				D54C55A626957FDE00729EC4 /* ARTNSURL+ARTUtils.m */,
 				D5BB213526AAA60500AA5F3E /* ARTNSError+ARTUtils.h */,
 				D5BB213426AAA60500AA5F3E /* ARTNSError+ARTUtils.m */,
+				84085A42293D1692007B4744 /* ARTUtils.h */,
+				84085A41293D1692007B4744 /* ARTUtils.m */,
 				215F75F62922B1DB009E0E76 /* ARTClientInformation.h */,
 				215F75F72922B1DB009E0E76 /* ARTClientInformation.m */,
 				215F76022922C76C009E0E76 /* ARTClientInformation+Private.h */,
@@ -1972,6 +1982,7 @@
 				EB82F8511C59D29B00661917 /* ARTDataEncoder.h in Headers */,
 				D7B621981E4A762A00684474 /* ARTPushChannel.h in Headers */,
 				D768C6AC1E4B5B0200436011 /* ARTDevicePushDetails.h in Headers */,
+				84085A46293D1692007B4744 /* ARTUtils.h in Headers */,
 				D5BB212E26AAA55C00AA5F3E /* ARTNSMutableURLRequest+ARTUtils.h in Headers */,
 				D7E0FEB8211DE94700659FAA /* ARTNSMutableRequest+ARTRest.h in Headers */,
 				D746AE401BBC5B14003ECEF8 /* ARTEventEmitter.h in Headers */,
@@ -2066,6 +2077,7 @@
 				D710D4DA21949BF9008F54AD /* ARTPendingMessage.h in Headers */,
 				D710D4B321949B47008F54AD /* ARTRestChannel+Private.h in Headers */,
 				D710D61C21949DEC008F54AD /* ARTPaginatedResult+Private.h in Headers */,
+				84085A47293D1692007B4744 /* ARTUtils.h in Headers */,
 				D710D58621949D29008F54AD /* ARTChannels.h in Headers */,
 				D710D64621949E61008F54AD /* ARTCrypto+Private.h in Headers */,
 				D710D59121949D29008F54AD /* ARTTypes.h in Headers */,
@@ -2210,6 +2222,7 @@
 				D710D4EA21949BFB008F54AD /* ARTPendingMessage.h in Headers */,
 				D710D4B921949B48008F54AD /* ARTRestChannel+Private.h in Headers */,
 				D710D62821949DED008F54AD /* ARTPaginatedResult+Private.h in Headers */,
+				84085A48293D1692007B4744 /* ARTUtils.h in Headers */,
 				D710D5AC21949D2A008F54AD /* ARTChannels.h in Headers */,
 				D710D64C21949E62008F54AD /* ARTCrypto+Private.h in Headers */,
 				D710D5B721949D2A008F54AD /* ARTTypes.h in Headers */,
@@ -2705,6 +2718,7 @@
 				D5D83C0A26AAEFEB00AADC8E /* NSURLQueryItem+Stringifiable.m in Sources */,
 				D746AE481BBD6FE9003ECEF8 /* ARTQueuedMessage.m in Sources */,
 				217D1830254222F600DFF07E /* ARTSRMutex.m in Sources */,
+				84085A43293D1692007B4744 /* ARTUtils.m in Sources */,
 				D746AE3D1BBC5AE1003ECEF8 /* ARTRealtimeChannel.m in Sources */,
 				217D1837254222F600DFF07E /* ARTSRError.m in Sources */,
 				96A507A21A377AA50077CDF8 /* ARTPresenceMessage.m in Sources */,
@@ -2884,6 +2898,7 @@
 				D5D83C0926AAEFEA00AADC8E /* NSURLQueryItem+Stringifiable.m in Sources */,
 				D710D66D21949E78008F54AD /* ARTLog.m in Sources */,
 				217D1847254222F700DFF07E /* ARTSRMutex.m in Sources */,
+				84085A44293D1692007B4744 /* ARTUtils.m in Sources */,
 				D710D5D721949D78008F54AD /* ARTChannels.m in Sources */,
 				217D184E254222F700DFF07E /* ARTSRError.m in Sources */,
 				D710D4F221949C0D008F54AD /* ARTPendingMessage.m in Sources */,
@@ -2995,6 +3010,7 @@
 				217D1857254222F900DFF07E /* ARTSRHash.m in Sources */,
 				D710D65321949E77008F54AD /* ARTLog.m in Sources */,
 				217D185E254222F900DFF07E /* ARTSRMutex.m in Sources */,
+				84085A45293D1692007B4744 /* ARTUtils.m in Sources */,
 				D710D5FD21949D79008F54AD /* ARTChannels.m in Sources */,
 				217D1865254222FA00DFF07E /* ARTSRError.m in Sources */,
 				D710D50221949C0E008F54AD /* ARTPendingMessage.m in Sources */,

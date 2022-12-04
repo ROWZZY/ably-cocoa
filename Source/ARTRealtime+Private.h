@@ -90,9 +90,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// Suspend the behavior defined in RTN15a, that is trying to immediately reconnect after a disconnection
 @property (readwrite, assign, nonatomic) BOOL shouldImmediatelyReconnect;
 
-/// Incremental backoff and jitter - RTB1
-+ (NSTimeInterval)retryDelayFromTimeout:(NSTimeInterval)timeout retryCount:(NSUInteger)retryCount;
-
 @end
 
 @interface ARTRealtimeInternal (Private)

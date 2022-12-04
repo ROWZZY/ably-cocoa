@@ -3890,7 +3890,7 @@ class RealtimeClientChannelTests: XCTestCase {
         }
     }
     
-    // RTL13b
+    // RTL13b, RTB1
     func test__131b__Channel__if_the_channel_receives_a_server_initiated_DETACHED_message_and_if_the_attempt_to_reattach_fails_then_the_channel_will_transition_to_SUSPENDED_state_with_periodic_reattach_with_channelRetryTimeout() {
         
         let options = AblyTests.commonAppSetup()
@@ -3919,16 +3919,24 @@ class RealtimeClientChannelTests: XCTestCase {
         detachedMessageWithError.action = .detached
         detachedMessageWithError.channel = channel.name
         
+        ARTUtils.seedRandom(withNumber: 5)
+        
         var retryNumber = 1
         let maxRetryCount = 5
+        var actualDelays = [TimeInterval]()
         
         waitUntil(timeout: testTimeout) { done in
+            var suspendedAt: Date!
             channel.on(.attaching) { stateChange in
                 expect(stateChange.previous).to(equal(ARTRealtimeChannelState.suspended))
+                guard stateChange.previous == .suspended, let suspendedAt = suspendedAt else { return }
+                let actualDelay = Date().timeIntervalSince(suspendedAt)
+                actualDelays.append(actualDelay)
                 retryNumber += 1
             }
             channel.on(.suspended) { stateChange in
                 expect(stateChange.previous).to(equal(ARTRealtimeChannelState.attaching))
+                suspendedAt = Date()
                 expect(stateChange.reason).toNot(beNil())
                 if retryNumber > maxRetryCount {
                     done()
@@ -3939,6 +3947,7 @@ class RealtimeClientChannelTests: XCTestCase {
             }
             client.internal.transport?.receive(detachedMessageWithError) // force to .suspended
         }
+        expect(actualDelays).to(beCloseTo(AblyTests.backoffWithJitterDelaysForTimeout(options.channelRetryTimeout), within: 0.18)) // Never hits exact values, less than this fails often
     }
 
     // RTL13c

@@ -2333,78 +2333,7 @@ class RealtimeClientConnectionTests: XCTestCase {
             client.connect()
         }
     }
-
-    // RTN14e - https://github.com/ably/ably-cocoa/issues/913
-    func test__061__Connection__connection_request_fails__should_change_the_state_to_SUSPENDED_when_the_connection_state_has_been_in_the_DISCONNECTED_state_for_more_than_the_connectionStateTtl() {
-        let options = AblyTests.commonAppSetup()
-        options.disconnectedRetryTimeout = 0.5
-        options.suspendedRetryTimeout = 2.0
-        options.autoConnect = false
-
-        let client = ARTRealtime(options: options)
-        client.internal.setTransport(TestProxyTransport.self)
-        client.internal.setReachabilityClass(TestReachability.self)
-        defer {
-            client.simulateRestoreInternetConnection()
-            client.dispose()
-            client.close()
-        }
-
-        let ttlHookToken = client.overrideConnectionStateTTL(3.0)
-        defer { ttlHookToken.remove() }
-
-        waitUntil(timeout: testTimeout) { done in
-            client.connection.once(.connected) { stateChange in
-                expect(stateChange.reason).to(beNil())
-                done()
-            }
-            client.connect()
-        }
-
-        var events: [ARTRealtimeConnectionState] = []
-        client.connection.on { stateChange in
-            events.append(stateChange.current)
-        }
-        client.simulateNoInternetConnection()
-
-        expect(events).toEventually(equal([
-            .disconnected,
-            .connecting, // 0.5 - 1
-            .disconnected,
-            .connecting, // 1.0 - 2
-            .disconnected,
-            .connecting, // 1.5 - 3
-            .disconnected,
-            .connecting, // 2.0 - 4
-            .disconnected,
-            .connecting, // 2.5 - 5
-            .disconnected,
-            .connecting, // 3.0 - 6
-            .suspended,
-            .connecting,
-            .suspended,
-        ]), timeout: testTimeout)
-
-        events.removeAll()
-        client.simulateRestoreInternetConnection(after: 7.0)
-
-        expect(events).toEventually(equal([
-            .connecting, // 2.0 - 1
-            .suspended,
-            .connecting, // 4.0 - 2
-            .suspended,
-            .connecting, // 6.0 - 3
-            .suspended,
-            .connecting,
-            .connected,
-        ]), timeout: testTimeout)
-
-        client.connection.off()
-
-        expect(client.connection.errorReason).to(beNil())
-        expect(client.connection.state).to(equal(.connected))
-    }
-
+    
     func test__062__Connection__connection_request_fails__on_CLOSE_the_connection_should_stop_connection_retries() {
         let options = AblyTests.commonAppSetup()
         // to avoid waiting for the default 15s before trying a reconnection

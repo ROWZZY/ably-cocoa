@@ -3889,6 +3889,57 @@ class RealtimeClientChannelTests: XCTestCase {
             channel.attach()
         }
     }
+    
+    // RTL13b
+    func test__131b__Channel__if_the_channel_receives_a_server_initiated_DETACHED_message_and_if_the_attempt_to_reattach_fails_then_the_channel_will_transition_to_SUSPENDED_state_with_periodic_reattach_with_channelRetryTimeout() {
+        
+        let options = AblyTests.commonAppSetup()
+        options.channelRetryTimeout = 1.0
+        options.autoConnect = false
+        let client = ARTRealtime(options: options)
+        client.internal.setTransport(TestProxyTransport.self)
+        
+        let previousRealtimeRequestTimeout = ARTDefault.realtimeRequestTimeout()
+        ARTDefault.setRealtimeRequestTimeout(1.0)
+        client.connect()
+        
+        defer { ARTDefault.setRealtimeRequestTimeout(previousRealtimeRequestTimeout); client.dispose(); client.close() }
+        
+        let transport = client.internal.transport as! TestProxyTransport
+        transport.actionsIgnored += [.attached]
+
+        expect(client.connection.state).toEventually(equal(ARTRealtimeConnectionState.connected), timeout: testTimeout)
+
+        let channel = client.channels.get(uniqueChannelName())
+        channel.attach()
+        
+        expect(channel.state).to(equal(ARTRealtimeChannelState.attaching))
+
+        let detachedMessageWithError = AblyTests.newErrorProtocolMessage()
+        detachedMessageWithError.action = .detached
+        detachedMessageWithError.channel = channel.name
+        
+        var retryNumber = 1
+        let maxRetryCount = 5
+        
+        waitUntil(timeout: testTimeout) { done in
+            channel.on(.attaching) { stateChange in
+                expect(stateChange.previous).to(equal(ARTRealtimeChannelState.suspended))
+                retryNumber += 1
+            }
+            channel.on(.suspended) { stateChange in
+                expect(stateChange.previous).to(equal(ARTRealtimeChannelState.attaching))
+                expect(stateChange.reason).toNot(beNil())
+                if retryNumber > maxRetryCount {
+                    done()
+                }
+            }
+            channel.on(.attached) { _ in
+                fail("Should not receive attached message")
+            }
+            client.internal.transport?.receive(detachedMessageWithError) // force to .suspended
+        }
+    }
 
     // RTL13c
     func test__132__Channel__history__if_the_channel_receives_a_server_initiated_DETACHED_message_when__if_the_connection_is_no_longer_CONNECTED__then_the_automatic_attempts_to_re_attach_the_channel_must_be_cancelled() {

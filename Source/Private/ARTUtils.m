@@ -1,6 +1,7 @@
 #import <time.h>
 #import <stdlib.h>
 #import "ARTUtils.h"
+#import "ARTUtils+Private.h"
 
 @implementation ARTUtils
 

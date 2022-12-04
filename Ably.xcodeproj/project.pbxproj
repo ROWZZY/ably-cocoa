@@ -109,6 +109,9 @@
 		84085A4D293D1925007B4744 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085A49293D18D6007B4744 /* UtilsTests.swift */; };
 		84085A4E293D1926007B4744 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085A49293D18D6007B4744 /* UtilsTests.swift */; };
 		84085A4F293D1926007B4744 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085A49293D18D6007B4744 /* UtilsTests.swift */; };
+		84085A51293D41B6007B4744 /* ARTUtils+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 84085A50293D41B6007B4744 /* ARTUtils+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		84085A52293D41B6007B4744 /* ARTUtils+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 84085A50293D41B6007B4744 /* ARTUtils+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		84085A53293D41B6007B4744 /* ARTUtils+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 84085A50293D41B6007B4744 /* ARTUtils+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		841134782722205400CFA837 /* ARTArchiveTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 841134772722205400CFA837 /* ARTArchiveTests.m */; };
 		8412FDE72661AC37001FE9E6 /* AblyDeltaCodec.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8412FDE12661AC37001FE9E6 /* AblyDeltaCodec.xcframework */; };
 		8412FDED2661AC37001FE9E6 /* msgpack.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8412FDE32661AC37001FE9E6 /* msgpack.xcframework */; };
@@ -1029,6 +1032,7 @@
 		84085A41293D1692007B4744 /* ARTUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ARTUtils.m; path = Private/ARTUtils.m; sourceTree = "<group>"; };
 		84085A42293D1692007B4744 /* ARTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ARTUtils.h; path = Private/ARTUtils.h; sourceTree = "<group>"; };
 		84085A49293D18D6007B4744 /* UtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilsTests.swift; sourceTree = "<group>"; };
+		84085A50293D41B6007B4744 /* ARTUtils+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ARTUtils+Private.h"; path = "Private/ARTUtils+Private.h"; sourceTree = "<group>"; };
 		841134772722205400CFA837 /* ARTArchiveTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARTArchiveTests.m; sourceTree = "<group>"; };
 		8412FDE12661AC37001FE9E6 /* AblyDeltaCodec.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AblyDeltaCodec.xcframework; path = Carthage/Build/AblyDeltaCodec.xcframework; sourceTree = "<group>"; };
 		8412FDE32661AC37001FE9E6 /* msgpack.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = msgpack.xcframework; path = Carthage/Build/msgpack.xcframework; sourceTree = "<group>"; };
@@ -1818,6 +1822,7 @@
 				D5BB213526AAA60500AA5F3E /* ARTNSError+ARTUtils.h */,
 				D5BB213426AAA60500AA5F3E /* ARTNSError+ARTUtils.m */,
 				84085A42293D1692007B4744 /* ARTUtils.h */,
+				84085A50293D41B6007B4744 /* ARTUtils+Private.h */,
 				84085A41293D1692007B4744 /* ARTUtils.m */,
 				215F75F62922B1DB009E0E76 /* ARTClientInformation.h */,
 				215F75F72922B1DB009E0E76 /* ARTClientInformation.m */,
@@ -2068,6 +2073,7 @@
 				D7DF738A1EA645300013CD36 /* ARTLocalDeviceStorage.h in Headers */,
 				960D07931A45F1D800ED8C8C /* ARTCrypto.h in Headers */,
 				D5BB20FC26A7F3FF00AA5F3E /* NSURLRequest+ARTSRWebSocket.h in Headers */,
+				84085A51293D41B6007B4744 /* ARTUtils+Private.h in Headers */,
 				D5C0CB3D268317B500C06521 /* NSURLQueryItem+Stringifiable.h in Headers */,
 				D5BB20FB26A7F3C800AA5F3E /* NSRunLoop+ARTSRWebSocket.h in Headers */,
 				D5BB20FD26A7F4F600AA5F3E /* ARTSRSecurityPolicy.h in Headers */,
@@ -2135,6 +2141,7 @@
 				D710D4A821949ADF008F54AD /* ARTRestPresence.h in Headers */,
 				D710D5BD21949D4F008F54AD /* ARTProtocolMessage+Private.h in Headers */,
 				D710D4BC21949B59008F54AD /* ARTRestChannels+Private.h in Headers */,
+				84085A52293D41B6007B4744 /* ARTUtils+Private.h in Headers */,
 				D710D57F21949D28008F54AD /* ARTAuthOptions.h in Headers */,
 				D710D51A21949C42008F54AD /* ARTDevicePushDetails.h in Headers */,
 				D710D58F21949D29008F54AD /* ARTStats.h in Headers */,
@@ -2280,6 +2287,7 @@
 				D710D4AE21949AE0008F54AD /* ARTRestPresence.h in Headers */,
 				D710D5CD21949D50008F54AD /* ARTProtocolMessage+Private.h in Headers */,
 				D710D4BE21949B5A008F54AD /* ARTRestChannels+Private.h in Headers */,
+				84085A53293D41B6007B4744 /* ARTUtils+Private.h in Headers */,
 				D710D5A521949D2A008F54AD /* ARTAuthOptions.h in Headers */,
 				D710D52C21949C44008F54AD /* ARTDevicePushDetails.h in Headers */,
 				D710D5B521949D2A008F54AD /* ARTStats.h in Headers */,

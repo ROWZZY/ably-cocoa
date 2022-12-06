@@ -2543,7 +2543,7 @@
 					};
 					96BF61301A35B2AB004CF2B3 = {
 						CreatedOnToolsVersion = 6.1.1;
-						LastSwiftMigration = 1410;
+						LastSwiftMigration = 1250;
 					};
 					D7093C09219E2DB200723F17 = {
 						CreatedOnToolsVersion = 10.1;
@@ -2557,12 +2557,12 @@
 					};
 					D710D45A219495E2008F54AD = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1410;
+						LastSwiftMigration = 1250;
 						ProvisioningStyle = Automatic;
 					};
 					D710D474219495FC008F54AD = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1410;
+						LastSwiftMigration = 1250;
 						ProvisioningStyle = Automatic;
 					};
 					EB36308823804F7A00B83598 = {

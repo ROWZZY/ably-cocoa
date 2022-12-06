@@ -614,7 +614,7 @@ dispatch_sync(_queue, ^{
                                                                          forRetryNumber:++_retryCount];
                 channelRetryListener = [self unlessStateChangesBefore:retryDelay do:^{
                     [self.realtime.logger debug:__FILE__ line:__LINE__ message:@"RT:%p C:%p (%@) reattach initiated by retry timeout", self->_realtime, self, self.name];
-                    [self reattachWithReason:nil callback:nil];
+                    [self reattachWithReason:nil];
                 }];
             }
             break;
@@ -745,7 +745,7 @@ dispatch_sync(_queue, ^{
         case ARTRealtimeChannelAttached:
         case ARTRealtimeChannelSuspended:
             [self.realtime.logger debug:__FILE__ line:__LINE__ message:@"RT:%p C:%p (%@) reattach initiated by DETACHED message", _realtime, self, self.name];
-            [self reattachWithReason:message.error callback:nil];
+            [self reattachWithReason:message.error];
             return;
         case ARTRealtimeChannelAttaching: {
             [self.realtime.logger debug:__FILE__ line:__LINE__ message:@"RT:%p C:%p (%@) reattach initiated by DETACHED message but it is currently attaching", _realtime, self, self.name];
@@ -947,10 +947,10 @@ dispatch_sync(_queue, ^{
     [self internalAttach:callback withReason:nil];
 }
 
-- (void)reattachWithReason:(ARTErrorInfo *)reason callback:(ARTCallback)callback {
+- (void)reattachWithReason:(ARTErrorInfo *)reason {
     if ([self canBeReattached]) {
         [self.realtime.logger debug:__FILE__ line:__LINE__ message:@"RT:%p C:%p (%@) %@ and will reattach", _realtime, self, self.name, ARTRealtimeChannelStateToStr(self.state_nosync)];
-        [self internalAttach:callback withReason:reason];
+        [self internalAttach:nil withReason:reason];
     } else {
         [self.realtime.logger debug:__FILE__ line:__LINE__ message:@"RT:%p C:%p (%@) %@ should not reattach", _realtime, self, self.name, ARTRealtimeChannelStateToStr(self.state_nosync)];
     }

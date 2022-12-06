@@ -3922,7 +3922,7 @@ class RealtimeClientChannelTests: XCTestCase {
         ARTUtils.seedRandom(withNumber: 5)
         
         var retryNumber = 1
-        let maxRetryCount = 5
+        let numberOfRetriesToWaitFor = 5 // An arbitrary number to finish test before timeout for `waitUntil` fires
         var actualDelays = [TimeInterval]()
         
         waitUntil(timeout: testTimeout) { done in
@@ -3938,7 +3938,7 @@ class RealtimeClientChannelTests: XCTestCase {
                 expect(stateChange.previous).to(equal(ARTRealtimeChannelState.attaching))
                 suspendedAt = Date()
                 expect(stateChange.reason).toNot(beNil())
-                if retryNumber > maxRetryCount {
+                if retryNumber > numberOfRetriesToWaitFor {
                     done()
                 }
             }

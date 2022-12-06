@@ -3906,7 +3906,7 @@ class RealtimeClientChannelTests: XCTestCase {
         defer { ARTDefault.setRealtimeRequestTimeout(previousRealtimeRequestTimeout); client.dispose(); client.close() }
         
         let transport = client.internal.transport as! TestProxyTransport
-        transport.actionsIgnored += [.attached]
+        transport.actionsIgnored += [.attached] // Make sure that each attach attempt times out (after realtimeRequestTimeout = 1.0)
 
         expect(client.connection.state).toEventually(equal(ARTRealtimeConnectionState.connected), timeout: testTimeout)
 

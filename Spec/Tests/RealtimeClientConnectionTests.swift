@@ -2211,21 +2211,27 @@ class RealtimeClientConnectionTests: XCTestCase {
     func test__059__Connection__connection_request_fails__if_connection_attempt_fails_connection_state_will_transition_to_DISCONNECTED_with_periodic_connection_attempts_with_incremental_backoff_and_jitter_until_SUSPENDED() {
         let options = AblyTests.commonAppSetup()
         options.realtimeHost = "10.255.255.1" // non-routable IP address
-        options.disconnectedRetryTimeout = 1.0
+        options.disconnectedRetryTimeout = 0.4 // so expectedTime below would not exceed 3 seconds
         options.autoConnect = false
-        let connectionStateTtl = 7.0
-
+        
         options.authCallback = { _, _ in
             // Ignore `completion` closure to force a time out
         }
+        
+        let previousRequestTimeout = ARTDefault.realtimeRequestTimeout()
+        defer { ARTDefault.setRealtimeRequestTimeout(previousRequestTimeout) }
+        
+        let requestTimeout = 0.1
+        ARTDefault.setRealtimeRequestTimeout(requestTimeout)
+        
+        AblyTests.resetRandomGenerator()
+        
+        let predefinedDelays = AblyTests.backoffWithJitterDelaysForTimeout(options.disconnectedRetryTimeout)
+        let expectedTimeBeforeSuspended = floor(predefinedDelays.reduce(0, { $0 + $1 + requestTimeout }))
 
         let previousConnectionStateTtl = ARTDefault.connectionStateTtl()
         defer { ARTDefault.setConnectionStateTtl(previousConnectionStateTtl) }
-        ARTDefault.setConnectionStateTtl(connectionStateTtl)
-
-        let previousRealtimeRequestTimeout = ARTDefault.realtimeRequestTimeout()
-        defer { ARTDefault.setRealtimeRequestTimeout(previousRealtimeRequestTimeout) }
-        ARTDefault.setRealtimeRequestTimeout(0.1)
+        ARTDefault.setConnectionStateTtl(expectedTimeBeforeSuspended)
 
         let client = ARTRealtime(options: options)
         client.internal.shouldImmediatelyReconnect = false
@@ -2234,29 +2240,26 @@ class RealtimeClientConnectionTests: XCTestCase {
             client.close()
         }
         
-        ARTUtils.seedRandom(withNumber: 5)
+        AblyTests.resetRandomGenerator()
         
-        var actualDelays = [TimeInterval]()
-        
-        var retryNumber = 1
+        var observedRetryInValues = [TimeInterval]()
         
         waitUntil(timeout: testTimeout) { done in
-            var disconnectedAt: Date!
+            var firstDisconnectedAt: Date!
+            
+            client.connection.once(.disconnected) { stateChange in
+                firstDisconnectedAt = Date()
+            }
             
             client.connection.on(.disconnected) { stateChange in
                 expect(stateChange.reason!.message).to(contain("timed out"))
                 expect(stateChange.previous).to(equal(ARTRealtimeConnectionState.connecting))
-                
-                actualDelays.append(stateChange.retryIn)
-                
-                if disconnectedAt == nil {
-                    disconnectedAt = Date()
-                }
-                retryNumber += 1
+                observedRetryInValues.append(stateChange.retryIn)
             }
-
+            
             client.connection.on(.suspended) { _ in
-                expect(Date().timeIntervalSince(disconnectedAt)) > connectionStateTtl
+                let actualTimeBeforeSuspended = Date().timeIntervalSince(firstDisconnectedAt)
+                expect(actualTimeBeforeSuspended).to(beCloseTo(expectedTimeBeforeSuspended, within: 0.9))
                 done()
             }
 
@@ -2266,7 +2269,7 @@ class RealtimeClientConnectionTests: XCTestCase {
                 expect(stateChange.previous).to(equal(ARTRealtimeConnectionState.disconnected))
             }
         }
-        expect(actualDelays).to(beCloseTo(AblyTests.backoffWithJitterDelaysForTimeout(options.disconnectedRetryTimeout), within: 0.15))
+        expect(observedRetryInValues).to(equal(predefinedDelays))
     }
 
     // RTN14e, RTN14f

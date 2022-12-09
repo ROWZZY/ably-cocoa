@@ -2291,48 +2291,48 @@ class RealtimeClientConnectionTests: XCTestCase {
         client.internal.shouldImmediatelyReconnect = false
         defer { client.dispose(); client.close() }
 
-        let ttlHookToken = client.overrideConnectionStateTTL(4)
+        let connectionStateTtl = 4.0
+        let ttlHookToken = client.overrideConnectionStateTTL(connectionStateTtl)
         defer { ttlHookToken.remove() }
+        
+        AblyTests.resetRandomGenerator()
+        
+        var suspendedRetryCount = 0
+        let maxSuspendedRetryCount = Int((testTimeout.toTimeInterval() - connectionStateTtl) / options.suspendedRetryTimeout) - 1 // RTN14f, -1 for delays added by realtimeRequestTimeout
 
-        var retryCount = 0
-        let maxRetryCount = 8 // RTN14f: reasonable amount within testTimeout
+        var suspendedAt: Date!
+        var firstDisconnectedAt: Date!
         
         waitUntil(timeout: testTimeout) { done in
-            var firstDisconnectedAt: Date!
-            var suspendedAt: Date!
-            var connectingAt: Date!
-
+            
+            client.connection.once(.disconnected) { stateChange in
+                firstDisconnectedAt = Date()
+            }
+            
             client.connection.on(.disconnected) { stateChange in
-                expect(suspendedAt).to(beNil()) // https://github.com/ably/ably-cocoa/issues/913
-                if firstDisconnectedAt == nil {
-                    firstDisconnectedAt = Date()
-                }
+                expect(suspendedAt).to(beNil()) // github.com/ably/ably-cocoa/issues/913
+                expect(stateChange.previous).to(equal(ARTRealtimeConnectionState.connecting))
                 expect(stateChange.reason?.message).to(contain("timed out"))
             }
+            
+            client.connection.once(.suspended) { stateChange in
+                expect(firstDisconnectedAt).toNot(beNil())
+                expect(Date().timeIntervalSince(firstDisconnectedAt)) > connectionStateTtl
+            }
+            
             client.connection.on(.suspended) { stateChange in
-                suspendedAt = Date()
+                expect(stateChange.previous).to(equal(ARTRealtimeConnectionState.connecting))
                 expect(client.connection.errorReason?.message).to(contain("timed out"))
-                expect(suspendedAt.timeIntervalSince(firstDisconnectedAt)) > client.internal.connectionStateTtl
-                if retryCount == maxRetryCount {
+                suspendedAt = Date()
+                suspendedRetryCount += 1
+                expect(stateChange.retryIn).to(equal(options.suspendedRetryTimeout))
+                
+                if suspendedRetryCount == maxSuspendedRetryCount {
                     client.connection.off()
                     done()
                 }
             }
-            client.connection.on(.connecting) { stateChange in
-                if stateChange.previous == .initialized {
-                    expect(firstDisconnectedAt).to(beNil())
-                    expect(suspendedAt).to(beNil())
-                    expect(connectingAt).to(beNil())
-                }
-                else if stateChange.previous == .suspended {
-                    connectingAt = Date()
-                    expect(connectingAt.timeIntervalSince(suspendedAt)).to(beCloseTo(options.suspendedRetryTimeout, within: 0.5))
-                }
-                else {
-                    expect(stateChange.previous).to(equal(ARTRealtimeConnectionState.disconnected))
-                }
-                retryCount += 1
-            }
+            
             client.connect()
         }
     }

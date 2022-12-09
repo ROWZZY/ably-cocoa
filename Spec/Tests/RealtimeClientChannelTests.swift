@@ -3919,7 +3919,7 @@ class RealtimeClientChannelTests: XCTestCase {
         detachedMessageWithError.action = .detached
         detachedMessageWithError.channel = channel.name
         
-        ARTUtils.seedRandom(withNumber: 5)
+        AblyTests.resetRandomGenerator()
         
         var retryNumber = 1
         let numberOfRetriesToWaitFor = 5 // An arbitrary number to finish test before timeout for `waitUntil` fires
@@ -3947,6 +3947,7 @@ class RealtimeClientChannelTests: XCTestCase {
             }
             client.internal.transport?.receive(detachedMessageWithError) // force to .suspended
         }
+        AblyTests.resetRandomGenerator()
         expect(actualDelays).to(beCloseTo(AblyTests.backoffWithJitterDelaysForTimeout(options.channelRetryTimeout), within: 0.18)) // Never hits exact values, less than this fails often
     }
 

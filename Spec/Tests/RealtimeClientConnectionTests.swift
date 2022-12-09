@@ -2227,7 +2227,7 @@ class RealtimeClientConnectionTests: XCTestCase {
         AblyTests.resetRandomGenerator()
         
         let predefinedDelays = AblyTests.backoffWithJitterDelaysForTimeout(options.disconnectedRetryTimeout)
-        let expectedTimeBeforeSuspended = floor(predefinedDelays.reduce(0, { $0 + $1 + requestTimeout }))
+        let expectedTimeBeforeSuspended = predefinedDelays.reduce(0, { $0 + $1 + requestTimeout })
 
         let previousConnectionStateTtl = ARTDefault.connectionStateTtl()
         defer { ARTDefault.setConnectionStateTtl(previousConnectionStateTtl) }

@@ -2207,11 +2207,11 @@ class RealtimeClientConnectionTests: XCTestCase {
         }
     }
     
-    // RTN14d, RTB1
-    func test__059__Connection__connection_request_fails__if_connection_attempt_fails_connection_state_will_transition_to_DISCONNECTED_with_periodic_connection_attempts_with_incremental_backoff_and_jitter_until_SUSPENDED() {
+    // RTN14d, RTN14e, RTN14f, RTB1
+    func test__059__Connection__connection_request_fails__if_connection_attempt_fails_connection_state_will_first_transition_to_DISCONNECTED_and_then_to_SUSPENDED_with_periodic_connection_attempts() {
         let options = AblyTests.commonAppSetup()
-        options.realtimeHost = "10.255.255.1" // non-routable IP address
-        options.disconnectedRetryTimeout = 0.4 // so expectedTime below would not exceed 3 seconds
+        options.disconnectedRetryTimeout = 0.4 // so expectedTimeBeforeSuspended below would not exceed 3 seconds
+        options.suspendedRetryTimeout = 1.0
         options.autoConnect = false
         
         options.authCallback = { _, _ in
@@ -2226,9 +2226,16 @@ class RealtimeClientConnectionTests: XCTestCase {
         
         AblyTests.resetRandomGenerator()
         
-        let predefinedDelays = AblyTests.backoffWithJitterDelaysForTimeout(options.disconnectedRetryTimeout)
+        var predefinedDelays = AblyTests.backoffWithJitterDelaysForTimeout(options.disconnectedRetryTimeout)
         let expectedTimeBeforeSuspended = predefinedDelays.reduce(0, { $0 + $1 + requestTimeout })
-
+        
+        var suspendedRetryCount = 0
+        let maxSuspendedRetryCount = 3 // enough to get confidence that it continues in suspended mode
+        
+        for _ in 0..<maxSuspendedRetryCount {
+            predefinedDelays.append(options.suspendedRetryTimeout)
+        }
+        
         let previousConnectionStateTtl = ARTDefault.connectionStateTtl()
         defer { ARTDefault.setConnectionStateTtl(previousConnectionStateTtl) }
         ARTDefault.setConnectionStateTtl(expectedTimeBeforeSuspended)
@@ -2246,28 +2253,36 @@ class RealtimeClientConnectionTests: XCTestCase {
         
         waitUntil(timeout: testTimeout) { done in
             var firstDisconnectedAt: Date!
+            var latestSuspendedAt: Date!
             
             client.connection.once(.disconnected) { stateChange in
                 firstDisconnectedAt = Date()
             }
             
             client.connection.on(.disconnected) { stateChange in
-                expect(stateChange.reason!.message).to(contain("timed out"))
+                expect(latestSuspendedAt).to(beNil()) // github.com/ably/ably-cocoa/issues/913
                 expect(stateChange.previous).to(equal(ARTRealtimeConnectionState.connecting))
+                expect(stateChange.reason?.message).to(contain("timed out"))
                 observedRetryInValues.append(stateChange.retryIn)
             }
             
-            client.connection.on(.suspended) { _ in
+            client.connection.once(.suspended) { stateChange in
                 let actualTimeBeforeSuspended = Date().timeIntervalSince(firstDisconnectedAt)
                 expect(actualTimeBeforeSuspended).to(beCloseTo(expectedTimeBeforeSuspended, within: 0.9))
-                done()
+            }
+            
+            client.connection.on(.suspended) { stateChange in
+                latestSuspendedAt = Date()
+                expect(stateChange.previous).to(equal(ARTRealtimeConnectionState.connecting))
+                expect(stateChange.reason?.message).to(contain("timed out"))
+                observedRetryInValues.append(stateChange.retryIn)
+                suspendedRetryCount += 1
+                if suspendedRetryCount == maxSuspendedRetryCount {
+                    done()
+                }
             }
 
             client.connect()
-
-            client.connection.on(.connecting) { stateChange in
-                expect(stateChange.previous).to(equal(ARTRealtimeConnectionState.disconnected))
-            }
         }
         expect(observedRetryInValues).to(equal(predefinedDelays))
     }
